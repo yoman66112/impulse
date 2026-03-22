@@ -1,0 +1,972 @@
+Ты прав, прости. Сейчас сделаю просто и понятно.
+
+**Добавляю фон с Казанью, чтобы лендинг не выглядел пустым. Всё остальное остаётся как было.**
+
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Импульс — педагогическая команда полного цикла</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #ff6b6b;
+            --accent: #f9c74f;
+            --dark: #2b2d42;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #4cc9f0;
+            --gradient: linear-gradient(135deg, #4361ee, #3a0ca3);
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+            position: relative;
+            background: #f0f2f5;
+        }
+
+        /* ФОН С КАЗАНЬЮ — ВИДЕН, НО НЕ МЕШАЕТ */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://image2url.com/r2/default/images/1774181977598-eb69708c-6e02-4826-b060-92418ad838a4.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.92);
+            margin: 20px 0;
+            border-radius: 30px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.92), rgba(58, 12, 163, 0.92));
+            color: white;
+            margin-top: 80px;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .parents {
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.92), rgba(245, 87, 108, 0.92));
+            color: white;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        h2:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            padding-top: 120px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            max-width: 900px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .carousel {
+            margin-top: 50px;
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: #1a1a2e;
+            position: relative;
+        }
+
+        .carousel-buttons {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .carousel-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            border: 2px solid white;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .carousel-btn:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .action-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+        }
+
+        .action-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .action-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .action-card .btn-small {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .philosophy-item {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .philosophy-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .team-photo {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .team-info {
+            padding: 25px;
+        }
+
+        .team-name {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        .team-role {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .team-superpower {
+            margin-top: 15px;
+            padding: 10px;
+            background: var(--light);
+            border-radius: 10px;
+            font-style: italic;
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 30px;
+            padding: 50px;
+            margin-top: 50px;
+        }
+
+        .product-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        .product-item {
+            text-align: center;
+        }
+
+        .product-item strong {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .principle-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--primary);
+        }
+
+        .principle-card h3 {
+            color: var(--primary);
+        }
+
+        .principle-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .principle-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .principle-list li::before {
+            content: '✓';
+            color: var(--secondary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .reason-item {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .reason-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .career-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 50px 0;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px;
+            background: var(--light);
+            border-radius: 20px;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+            margin-top: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #28a745;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            z-index: 1000;
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hero {
+                padding-top: 100px;
+            }
+            .carousel {
+                height: 300px;
+            }
+            .action-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="#" class="logo">ИМПУЛЬС</a>
+        <div class="nav-links">
+            <a href="#about">О нас</a>
+            <a href="#products">Смены</a>
+            <a href="#principles">Принципы</a>
+            <a href="#parents">Родителям</a>
+            <a href="#career">Карьера</a>
+            <a href="#contacts">Контакты</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero" id="home">
+    <div class="container hero-content">
+        <h1>ИМПУЛЬС: педагогическая команда полного цикла. Создаём и проводим смены, которые меняют траекторию развития детей</h1>
+        <p class="hero-subtitle">Работаем на любых базах: в школах, загородных лагерях, на выездных площадках. Разрабатываем программы под задачи партнёра. Готовим вожатых. Гарантируем безопасность и результат.</p>
+
+        <div class="carousel" id="carousel">
+            <div class="carousel-track">
+                <div class="carousel-slide" style="background-image: url('https://i.ibb.co/HTnsBL2M/IMG-9270.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('https://i.ibb.co/23Pg23JH/IMG-9221.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('https://i.ibb.co/LXnp4xKb/IMG-9876.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('https://i.ibb.co/vxgxpyqy/IMG-9851.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('https://i.ibb.co/9mS1bK7H/IMG-9555.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('https://i.ibb.co/3yqGXjQr/IMG-9448.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('https://i.ibb.co/twy9pbPp/IMG-9184.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('https://i.ibb.co/cc2RKmG7/IMG-9156.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('https://i.ibb.co/tp3XV5rm/IMG-9097.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('https://i.ibb.co/hRkCsbgL/IMG-9097.jpg')"></div>
+            </div>
+            <div class="carousel-buttons">
+                <button class="carousel-btn" onclick="prevSlide()">←</button>
+                <button class="carousel-btn" onclick="nextSlide()">→</button>
+            </div>
+        </div>
+
+        <div class="action-cards">
+            <a href="#partners" class="action-card">
+                <h3>Директорам школ/лагерей</h3>
+                <p>Заказать смену под ключ с гарантией результата</p>
+                <span class="btn-small">ЗАКАЗАТЬ СМЕНУ ПОД КЛЮЧ</span>
+            </a>
+            <a href="#products" class="action-card">
+                <h3>Родителям</h3>
+                <p>Выбрать развивающую смену для вашего ребёнка</p>
+                <span class="btn-small">ВЫБРАТЬ СМЕНУ ДЛЯ РЕБЁНКА</span>
+            </a>
+            <a href="#career" class="action-card">
+                <h3>Будущим вожатым</h3>
+                <p>Стать частью команды профессионалов</p>
+                <span class="btn-small">ХОЧУ В КОМАНДУ</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="container">
+        <h2>О НАС</h2>
+        <div class="philosophy-grid">
+            <div class="philosophy-item">
+                <div class="philosophy-icon">🤝</div>
+                <h3>Доверительное поле</h3>
+                <p>Мы создаём среду, где ребёнку не страшно ошибаться, пробовать, быть собой. Безопасность — физическая и психологическая — наше абсолютное условие.</p>
+            </div>
+            <div class="philosophy-item">
+                <div class="philosophy-icon">🎯</div>
+                <h3>Точечное воздействие</h3>
+                <p>Мы наблюдаем, вычисляем зону ближайшего развития и даём ровно тот вызов, который нужен именно этому ребёнку именно сейчас.</p>
+            </div>
+            <div class="philosophy-item">
+                <div class="philosophy-icon">⚡</div>
+                <h3>Сохранение энергии</h3>
+                <p>Мы бережём ресурс команды. Выгоревший вожатый — угроза для детей. Поэтому у нас есть система супервизии, поддержки и отдыха.</p>
+            </div>
+        </div>
+
+        <h3 style="text-align: center; margin: 60px 0 30px;">Наша команда</h3>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-photo" style="background-image: url('https://randomuser.me/api/portraits/women/68.jpg')"></div>
+                <div class="team-info">
+                    <div class="team-name">Анна</div>
+                    <div class="team-role">Руководитель, методолог</div>
+                    <div>Психолог, МГУ</div>
+                    <div>12 лет в лагерях</div>
+                    <div class="team-superpower">✨ Видит потенциал в каждом ребёнке</div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-photo" style="background-image: url('https://randomuser.me/api/portraits/men/32.jpg')"></div>
+                <div class="team-info">
+                    <div class="team-name">Дмитрий</div>
+                    <div class="team-role">Старший тренер вожатых</div>
+                    <div>Педагог, РГПУ</div>
+                    <div>8 лет, школа вожатых</div>
+                    <div class="team-superpower">⚡ Заряжает энергией, даже если у команды нет сил</div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-photo" style="background-image: url('https://randomuser.me/api/portraits/women/45.jpg')"></div>
+                <div class="team-info">
+                    <div class="team-name">Елена</div>
+                    <div class="team-role">Координатор проектов</div>
+                    <div>Менеджер</div>
+                    <div>5 лет</div>
+                    <div class="team-superpower">📊 Организует хаос в идеальный порядок</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="products">
+    <div class="container">
+        <h2>ЧТО МЫ ДЕЛАЕМ</h2>
+        <div class="product-card">
+            <h3 style="color: white; text-align: center;">КВАНТОВЫЙ СКАЧОК: Миссия в будущее</h3>
+            <div class="product-table">
+                <div class="product-item">
+                    <strong>Возраст</strong>
+                    7–12 лет / 7-17 лет
+                </div>
+                <div class="product-item">
+                    <strong>Формат</strong>
+                    Пришкольный / Стационар
+                </div>
+                <div class="product-item">
+                    <strong>Длительность</strong>
+                    5–21 день
+                </div>
+            </div>
+            <p style="text-align: center; margin: 30px 0; font-size: 1.2rem;">
+                Исследование будущего через игру. Дети становятся Хроноскаутами, исследуют 10+ «парадоксов» (энергия, экология, технологии), создают коллективный проект.
+            </p>
+            <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px;">
+                <strong style="display: block; margin-bottom: 15px;">Что получает ребёнок:</strong>
+                <p>Опыт проектной работы, навыки командного взаимодействия, экологическое мышление, уверенность, новых друзей, портфолио (диплом, проект).</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="principles">
+    <div class="container">
+        <h2>НАШИ ПРИНЦИПЫ</h2>
+        <div class="principles-grid">
+            <div class="principle-card">
+                <h3>🔒 Безопасность</h3>
+                <ul class="principle-list">
+                    <li>Все вожатые обучены первой помощи</li>
+                    <li>Медицинский работник на смене</li>
+                    <li>Чёткие регламенты для ЧС</li>
+                    <li>Антибуллинговая политика</li>
+                    <li>Индивидуальный подход к каждому</li>
+                    <li>Официальное трудоустройство</li>
+                    <li>Страхование ответственности</li>
+                </ul>
+            </div>
+            <div class="principle-card">
+                <h3>⭐ Качество</h3>
+                <ul class="principle-list">
+                    <li>Авторские программы</li>
+                    <li>Научная база — опора на психологию</li>
+                    <li>Ежедневные отчёты для родителей</li>
+                    <li>Постоянное развитие команды</li>
+                    <li>Анализ каждой смены</li>
+                </ul>
+            </div>
+            <div class="principle-card">
+                <h3>❤️ Человечность</h3>
+                <ul class="principle-list">
+                    <li>Видим в детях личности</li>
+                    <li>Уважаем чувства и границы</li>
+                    <li>Не кричим, не унижаем</li>
+                    <li>Не заставляем через силу</li>
+                    <li>Получаем удовольствие от работы</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="parents" class="parents">
+    <div class="container">
+        <h2 style="color: white;">РОДИТЕЛЯМ</h2>
+        <p style="text-align: center; font-size: 1.3rem; max-width: 800px; margin: 0 auto;">
+            «Ваш ребёнок не просто отдохнёт. Он откроет в себе то, о чём не догадывался. Научится дружить, договариваться, верить в себя. А ещё — создаст проект, который останется с ним навсегда».
+        </p>
+        <div class="reasons-grid">
+            <div class="reason-item">
+                <div class="reason-number">1</div>
+                <h3>Безопасность</h3>
+                <p>Чёткие правила, медпункт, страховка, постоянный присмотр</p>
+            </div>
+            <div class="reason-item">
+                <div class="reason-number">2</div>
+                <h3>Развитие</h3>
+                <p>Новые знания, навыки, открытия каждый день</p>
+            </div>
+            <div class="reason-item">
+                <div class="reason-number">3</div>
+                <h3>Команда</h3>
+                <p>Профессионалы после отбора и обучения</p>
+            </div>
+            <div class="reason-item">
+                <div class="reason-number">4</div>
+                <h3>Индивидуальный подход</h3>
+                <p>Видим и слышим каждого ребёнка</p>
+            </div>
+            <div class="reason-item">
+                <div class="reason-number">5</div>
+                <h3>Результат</h3>
+                <p>Диплом, проект, новые друзья</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="career">
+    <div class="container">
+        <h2>КАРЬЕРА</h2>
+        <div style="background: var(--gradient); color: white; padding: 50px; border-radius: 30px; margin-bottom: 50px;">
+            <h3 style="color: white; text-align: center;">Кто такой вожатый «Импульса»?</h3>
+            <p style="text-align: center; font-size: 1.2rem; margin-top: 20px;">
+                «Это не просто работа. Это сообщество профессионалов, которые любят детей и хотят делать мир лучше. Ты получишь не только зарплату, но и опыт, друзей, методическую поддержку и крутой мерч».
+            </p>
+        </div>
+        
+        <h3 style="text-align: center; margin: 40px 0;">Как стать частью команды</h3>
+        <div class="career-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h4>Заполни анкету</h4>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h4>Пройди собеседование</h4>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h4>Обучись в Школе вожатых</h4>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h4>Пройди стажировку</h4>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <h4>Стань агентом «Импульса»</h4>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <h3 style="text-align: center; margin-bottom: 30px;">Заполни заявку</h3>
+            <form id="applicationForm">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Имя, фамилия" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" id="age" placeholder="Возраст" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="education" placeholder="Образование" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="experience" placeholder="Опыт работы с детьми (где, когда)"></textarea>
+                </div>
+                <div class="form-group">
+                    <textarea id="reason" placeholder="Почему ты хочешь к нам?" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" placeholder="Телефон" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                <button type="submit" class="submit-btn">ОТПРАВИТЬ ЗАЯВКУ</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section id="contacts">
+    <div class="container">
+        <h2>КОНТАКТЫ</h2>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                <h3>Телефон</h3>
+                <p>+7 (999) 123-45-67</p>
+                <p>WhatsApp / Telegram</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">✉️</div>
+                <h3>Email</h3>
+                <p>info@impuls.ru</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <h3>Адрес</h3>
+                <p>г. Казань, ул. Кремлёвская, д. 1</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">🌐</div>
+                <h3>Соцсети</h3>
+                <p>VK | Telegram-канал</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-links">
+                <h4>Информация</h4>
+                <a href="#">Политика конфиденциальности</a>
+                <a href="#">Пользовательское соглашение</a>
+                <a href="#">Согласие на обработку данных</a>
+            </div>
+            <div class="footer-links">
+                <h4>Реквизиты</h4>
+                <p>ИНН: 1234567890</p>
+                <p>ОГРН: 1234567890123</p>
+                <p>Юр. адрес: г. Казань, ул. Кремлёвская, д. 1</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Импульс. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
+
+<div id="toast" class="toast">✅ Заявка отправлена! Мы свяжемся с вами</div>
+
+<script>
+    let currentIndex = 0;
+    const track = document.querySelector('.carousel-track');
+    const slides = document.querySelectorAll('.carousel-slide');
